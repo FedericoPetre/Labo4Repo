@@ -1,0 +1,87 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="col-md-6">
+    <h2 class="text-center mb-4">Alta Producto</h2>
+
+    <form class="needs-validation" novalidate [formGroup]="form">
+      <div class="mb-3">
+        <label class="form-label">Código</label>
+        <input type="text" class="form-control" placeholder="Ingrese código de producto" formControlName="codigo">
+          <!--Errores de código-->
+          <div *ngIf="form.controls['codigo'].errors != null">
+            <small style="color:red;" *ngIf="form.controls['codigo'].errors['required'] && form.controls['codigo'].touched">
+              Error, el código del producto es requerido
+            </small>
+          </div>
+          <!--Fin errores de Código-->  
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <input type="text" class="form-control" placeholder="Ingrese descripción del producto" formControlName="descripcion">
+          <!--Errores de Descripción-->
+          <div *ngIf="form.controls['descripcion'].errors != null">
+            <small style="color:red;" *ngIf="form.controls['descripcion'].errors['required'] && form.controls['descripcion'].touched">
+              Error, la descripción del producto es requerida
+            </small>
+          </div>
+          <!--Fin errores de Descripción--> 
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Precio</label>
+        <input type="number" class="form-control" placeholder="Ingrese precio del producto" formControlName="precio">
+          <!--Errores de Precio-->
+          <div *ngIf="form.controls['precio'].errors != null">
+            <small style="color:red;" *ngIf="form.controls['precio'].errors['required'] && form.controls['precio'].touched">
+              Error, el precio del producto es requerido
+            </small>
+            <small style="color:red;" *ngIf="form.controls['precio'].errors['min'] && form.controls['precio'].touched">
+              Error, el precio del producto no puede ser negativo
+            </small>
+          </div>
+          <!--Fin errores de Precio--> 
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Stock</label>
+        <input type="number" class="form-control" placeholder="Ingrese stock inicial del producto" formControlName="stock">
+          <!--Errores de Stock-->
+          <div *ngIf="form.controls['stock'].errors != null">
+            <small style="color:red;" *ngIf="form.controls['stock'].errors['required'] && form.controls['stock'].touched">
+              Error, el stock del producto es requerido
+            </small>
+            <small style="color:red;" *ngIf="form.controls['stock'].errors['min'] && form.controls['stock'].touched">
+              Error, el stock del producto no puede ser negativo
+            </small>
+          </div>
+          <!--Fin errores de Stock--> 
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">País de Origen</label>
+        <input type="text" class="form-control" placeholder="Aquí se mostrará el país seleccionado" formControlName="paisControl" readonly [(ngModel)]="pais" name="pais">
+          <!--Errores de Pais-->
+          <div *ngIf="form.controls['paisControl'].errors != null">
+            <small style="color:red;" *ngIf="form.controls['paisControl'].errors['required']">
+              Error, el pais del producto es requerido
+            </small>
+          </div>
+          <!--Fin errores de Pais--> 
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">¿Es comestible?</label>
+        <div class="form-check">
+          <input type="radio" id="checkEsComestible" class="form-check-input" name="esComestible" value="true" formControlName="esComestible">
+          <label class="form-check-label" for="checkEsComestible">Si</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" id="checkNoEsComestible" class="form-check-input" name="esComestible" value="false" formControlName="esComestible" checked>
+          <label class="form-check-label" for="checkNoEsComestible">No</label>
+        </div>
+      </div>
+
+      <button [disabled]="form.invalid" class="w-100 btn btn-primary btn-lg" (click)="agregarProducto()">Agregar Producto</button>
+    </form>
+  </div>
+</div>

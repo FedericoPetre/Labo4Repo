@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12"><app-listado-productos (eventItem)="mostrarDetalleProducto($event)"></app-listado-productos></div>
+    </div>
+    <div class="row">
+        <div class="col-6"><app-detalle-producto [producto]="produtoSeleccionado"></app-detalle-producto></div>
+        <div class="col-6"><app-detalle-pais [pais]="paisSeleccionado"></app-detalle-pais></div>
+    </div>
+</div>

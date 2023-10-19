@@ -1,0 +1,19 @@
+<div class="contenedor">
+    <table class="full-width">
+        <thead>
+            <tr>
+                <td colspan="3"><h2>Seleccione Continente/País</h2></td>
+            </tr>
+            <tr>    
+                <td><button (click)="traerPaisesAmericaDelSur()">América</button></td>
+                <td><button (click)="traerPaisesEuropa()">Europa</button></td>
+                <td><button (click)="traerPaisesAfrica()">Africa</button></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of paises">
+                <td colspan="3"><button (click)="agregarPais(item.nombre)">{{item.nombre}} <img src="{{item.bandera}}"></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

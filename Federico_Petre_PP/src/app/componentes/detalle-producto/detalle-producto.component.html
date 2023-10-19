@@ -1,0 +1,30 @@
+<div class="h-100 d-flex justify-content-center align-items-center text-white bg-dark rounded-3">
+    <div class="text-center">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <td>Codigo</td>
+                        <td>Descripción</td>
+                        <td>¿Es Comestible?</td>
+                        <td>Precio</td>
+                        <td>Stock</td>
+                        <td>País de Origen</td>
+                    </tr>
+                </thead>
+                <tbody class="table-light">
+                    <tr>
+                        <td>{{producto.codigo}}</td>
+                        <td>{{producto.descripcion}}</td>
+                        <td *ngIf="producto.esComestible == 'true'; then esComestible1; else noEsComestible"></td>
+                        <ng-template #esComestible1><td>Si</td></ng-template>
+                        <ng-template #noEsComestible><td>No</td></ng-template>
+                        <td>{{producto.precio}}</td>
+                        <td>{{producto.stock}}</td>
+                        <td>{{producto.pais}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

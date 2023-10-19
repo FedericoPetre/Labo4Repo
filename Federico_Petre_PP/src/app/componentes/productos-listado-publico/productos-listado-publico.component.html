@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="p-5 mb-4 bg-light rounded-3 text-center">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <td>Codigo</td>
+                                <td>Descripción</td>
+                                <td>Stock</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of productosArrayFiltrado">
+                                <td>{{item.codigo}}</td>
+                                <td>{{item.descripcion}}</td>
+                                <td>{{item.stock}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

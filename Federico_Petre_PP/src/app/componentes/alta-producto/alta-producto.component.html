@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <app-formulario-alta-producto [pais]="paisSeleccionado"></app-formulario-alta-producto>
+      </div>
+      <div class="col-md-4">
+        <app-listado-paises (eventEmitter)="asignarPais($event)"></app-listado-paises>
+      </div>
+    </div>
+  </div>
+  
