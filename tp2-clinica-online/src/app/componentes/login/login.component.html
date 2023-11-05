@@ -1,0 +1,38 @@
+<div class="contenedorMayor">
+    <div class="row">
+        <div class="col-12 columna">
+            <div class="formularioDiv">
+                <h1>Iniciar Sesión</h1>
+                <form class="needs-validation" novalidate [formGroup]="form">
+                    <div class="mb-3 controlFormulario">
+                        <label class="form-label">Correo</label>
+                        <input type="email" class="form-control" placeholder="Ingrese correo" formControlName="email">
+                          <!--Errores de email-->
+                          <div *ngIf="form.controls['email'].errors != null">
+                            <small style="color:red;" *ngIf="form.controls['email'].errors['required'] && form.controls['email'].touched">
+                              Error, el correo es requerido
+                            </small>
+                          </div>
+                    </div>
+            
+                    <div class="mb-3 controlFormulario">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" placeholder="Ingrese contraseña" formControlName="clave">
+                          <!--Errores de contraseña-->
+                          <div *ngIf="form.controls['clave'].errors != null">
+                            <small style="color:red;" *ngIf="form.controls['clave'].errors['required'] && form.controls['clave'].touched">
+                              Error, el correo es requerido
+                            </small>
+                          </div>
+                    </div>
+
+                    <button [disabled]="form.invalid" (click)="ingresar()">Ingresar</button>
+                
+                </form>
+            </div><!--Fin formularioDiv-->
+        </div>
+    </div>
+</div>
+
+
+

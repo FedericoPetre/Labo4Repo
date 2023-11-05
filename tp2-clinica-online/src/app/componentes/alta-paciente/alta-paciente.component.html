@@ -1,4 +1,5 @@
 <div class="contenedorMayor">
+  <app-botones-registro></app-botones-registro>
     <div class="">
       <h2 class="text-center mb-4">Formulario de Registro Paciente</h2>
   
@@ -77,7 +78,7 @@
             <div class="col-6 columna"> <!--Derecha formulario-->
                 <div class="mb-3 img">
                   <tr>
-                    <td> <img [src]="imagenPerfil1" alt="imagenPerfil"></td>
+                    <td><img [src]="imagenPerfil1" alt="imagenPerfil"></td>
                     <td><img [src]="imagenPerfil2" alt="imagenPerfil"></td>
                   </tr>                 
                 </div>
@@ -121,8 +122,8 @@
             </div>
         </div>       
   
-        <button [disabled]="form.invalid" class="w-100 btn btn-primary btn-lg" (click)="registrarPaciente()">Aceptar</button>
-      </form>
+        <button class="btnRegistro" [disabled]="form.invalid" class="w-100 btn btn-primary btn-lg" (click)="registrarPaciente()">Aceptar</button>
+      </form><br>
     </div>
   </div>
   

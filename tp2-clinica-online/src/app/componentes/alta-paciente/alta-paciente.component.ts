@@ -15,6 +15,7 @@ export class AltaPacienteComponent
   botonesObraSocial : any[] = [];
   imagenPerfil1 : any = "../../../assets/img/silueta.png";
   imagenPerfil2 : any = "../../../assets/img/silueta.png";
+  obser$: any;
 
   public get Nombre(){
     return this.form.get('nombre')?.value;
@@ -32,8 +33,8 @@ export class AltaPacienteComponent
     return this.form.get('dni')?.value;
   }
 
-  public get Especialidad(){
-    return this.form.get('especialidad')?.value;
+  public get ObraSocial(){
+    return this.form.get('obraSocial')?.value;
   }
 
   public get Email(){
@@ -44,8 +45,18 @@ export class AltaPacienteComponent
     return this.form.get('clave')?.value;
   }
 
-  ngOnInit(){
 
+  ngOnInit(){
+    this.obser$ = this.firebase.traerPacientesRegistrados().subscribe(pacientes=>{
+      this.cargarPacientes(pacientes);
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.obser$) 
+    {
+      this.obser$.unsubscribe();
+    }
   }
 
   constructor(private firebase : FirebaseService, private formBuilder : FormBuilder){
@@ -62,16 +73,14 @@ export class AltaPacienteComponent
   }
 
   async registrarPaciente(){
-    if(this.fotosPaciente.length < 2){
-      //si es menor que dos avisar que tienen que ser dos
-    }
-    else if(this.fotosPaciente.length == 2){
-      //los datos del paciente tomados del formulario irían en el constructor de Paciente
-      const paciente = new Paciente("Juan","Petre",24,42011714, "fedepetre22@gmail.com","222222", "OSDE", [{foto:'sasa'}]);
+    if(this.fotosPaciente.length == 2){ //si son dos fotos se puede registrar
+      //los datos del paciente tomados del formulario van en el constructor de Paciente
+      const paciente = new Paciente(this.Nombre, this.Apellido, this.Edad, this.Dni, this.Email, this.Clave, this.ObraSocial, [{foto:''}]);
       await this.firebase.registrarPaciente(paciente, this.fotosPaciente);
+      this.limpiarTodo();
     }
-    else{
-      //si es mayor a 2
+    else{ //si no son dos fotos (son más o son menos) entonces no se registra hasta que sean dos fotos solamente
+      // avisar que no son la cantidad de fotos requeridas
     }
 
   }
@@ -79,18 +88,27 @@ export class AltaPacienteComponent
   actualizarFotosPaciente(event : any){
     let fotos : FileList = event.target.files;
     this.fotosPaciente = [];
+    let cantidadFotos = fotos.length;
 
-    for(let i=0; i<fotos.length; i++){
-      let reader : FileReader = new FileReader();
-      reader.readAsDataURL(fotos[i]);
-      reader.onloadend = () => {
-        this.fotosPaciente.push(reader.result);
-        if(i==1){
-          this.imagenPerfil1 = this.fotosPaciente[0];
-          this.imagenPerfil2 = this.fotosPaciente[1];
+    if(cantidadFotos == 2){
+      for(let i=0; i<cantidadFotos; i++){
+        let reader : FileReader = new FileReader();
+        reader.readAsDataURL(fotos[i]);
+        reader.onloadend = () => {
+          this.fotosPaciente.push(reader.result);
+          if(i==1){
+            this.imagenPerfil1 = this.fotosPaciente[0];
+            this.imagenPerfil2 = this.fotosPaciente[1];
+          }
         }
       }
+    }else{
+      //se avisa que no pueden ser más de 2 fotos:
+      let fotosReales = cantidadFotos++;
+      alert("Has seleccionado "+fotosReales+" fotos! Seleccione 2 fotos solamente!");
     }
+
+
 
 
     console.log(this.fotosPaciente);    
@@ -98,6 +116,49 @@ export class AltaPacienteComponent
 
   cargarObraSocial(obraSocial : string){
     this.form.get('obraSocial')?.setValue(obraSocial);
+  }
+
+  limpiarTodo(){
+    this.form.setValue({
+      nombre:'',
+      apellido:'',
+      edad:'',
+      dni:'',
+      obraSocial:'',
+      email:'',
+      clave:'',
+      fotos:''
+    });
+    this.imagenPerfil1 = "../../../assets/img/silueta.png";
+    this.imagenPerfil2 = "../../../assets/img/silueta.png";
+  }
+
+  cargarPacientes(arrayPacientes: any[]){
+    let arrayPacientesAux : any = [];
+    
+    for(let i=0; i<arrayPacientes.length;i++){
+      if(!this.determinarSiLaEspecialidadEsta(arrayPacientesAux, arrayPacientes[i].obraSocial)){
+        arrayPacientesAux.push(
+          {obraSocial:arrayPacientes[i].obraSocial}
+        );
+      }
+    }
+
+    this.botonesObraSocial = arrayPacientesAux;
+    
+  }
+
+
+  determinarSiLaEspecialidadEsta(arrayPacientesAux : any[], obraSocial : string){
+    let flagLaObraSocialExiste : boolean = false;
+
+    for(let i=0; i<arrayPacientesAux.length; i++){
+      if(arrayPacientesAux[i].obraSocial == obraSocial){
+        flagLaObraSocialExiste = true;
+        break;
+      }
+    }
+    return flagLaObraSocialExiste;
   }
 
 }

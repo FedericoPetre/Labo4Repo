@@ -1,0 +1,56 @@
+.contenedorMayor {
+    width: 100vw;
+    height: 93vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.row {
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: aquamarine; /*acá iría background-image en realidad*/
+}
+
+.columna {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 6%;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+}
+
+img {
+    width: auto;
+    max-width: 100%; /* La imagen ocupará el 100% del ancho de su contenedor, pero no se desbordará */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción original */
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    margin: 4% 4% 4% 4%;
+}
+
+.formularioDiv{
+    width: 50%;
+    height: auto;
+    border-radius: 20px;
+    background-color: blue;
+    text-align: center;
+}
+
+button{
+    margin-top: 10px;
+    width: 30%;
+    height: fit-content;
+    border-radius: 10px;
+}

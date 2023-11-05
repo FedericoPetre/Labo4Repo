@@ -10,14 +10,6 @@ import { Paciente } from 'src/app/clases/paciente';
 })
 export class BienvenidaComponent {
   
-  email : string = "admin1@admin.com";
-  clave : string = "111111";
-
-  constructor(private firebase : FirebaseService){}
-
-  async ingresar(){
-    await this.firebase.ingresar(this.email, this.clave);
-  }
-
+  
 
 }
