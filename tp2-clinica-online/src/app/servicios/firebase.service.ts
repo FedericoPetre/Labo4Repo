@@ -21,6 +21,7 @@ export class FirebaseService {
   flagLogueado : boolean = false;
   email : string = "";
   nombreUsuario : string = "";
+  public tipoUsuario : string = "";
 
   constructor(private auth : AngularFireAuth, private store : AngularFirestore, private storage : Storage, private notificacion : NotificacionService, private router : Router) {}
 
@@ -45,7 +46,11 @@ export class FirebaseService {
 
   salir(){
     this.flagLogueado = false;
-    this.auth.signOut();
+    this.auth.signOut().then(()=>{
+      this.notificacion.mostrarInfo("Cerrar Sesión","Has cerrado tu sesión");
+    }).catch(error=>{
+      this.notificacion.mostrarError("Error","Error al cerrar sesión");
+    });
     this.router.navigateByUrl('login');
   }
 
@@ -193,7 +198,7 @@ export class FirebaseService {
     return admins.valueChanges();
   }
 
-  retornarUsuarioRegistrados(){
+   retornarUsuarioRegistrados(){
     const usuario = this.store.collection('Usuarios');
 
     return usuario.valueChanges();

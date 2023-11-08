@@ -23,7 +23,8 @@ import { LoginComponent } from './componentes/login/login.component';
 // Importa BrowserAnimationsModule
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponenteHabilitacionesComponent } from './componentes/componente-habilitaciones/componente-habilitaciones.component';
-import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component'; 
+import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
+import { BotonesSeccionHabilitacionesComponent } from './componentes/botones-seccion-habilitaciones/botones-seccion-habilitaciones.component'; 
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.componen
     BotonesRegistroComponent,
     LoginComponent,
     ComponenteHabilitacionesComponent,
-    AltaAdminComponent
+    AltaAdminComponent,
+    BotonesSeccionHabilitacionesComponent
   ],
   imports: [
     BrowserModule,

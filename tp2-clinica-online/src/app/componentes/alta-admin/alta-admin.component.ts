@@ -13,8 +13,6 @@ export class AltaAdminComponent {
   fotoAdmin : any[] = [];
   public form : FormGroup;
   imagenPerfil : any = "../../../assets/img/silueta.png";
-  botonesEspecialidad : any[] = [];
-  obser$: any;
 
   public get Nombre(){
     return this.form.get('nombre')?.value;
@@ -32,29 +30,12 @@ export class AltaAdminComponent {
     return this.form.get('dni')?.value;
   }
 
-  public get Especialidad(){
-    return this.form.get('especialidad')?.value;
-  }
-
   public get Email(){
     return this.form.get('email')?.value;
   }
 
   public get Clave(){
     return this.form.get('clave')?.value;
-  }
-
-  ngOnInit(){
-    this.obser$ = this.firebase.traerAdminsRegistrados().subscribe(admins=>{
-      this.cargarAdmins(admins);
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.obser$) 
-    {
-      this.obser$.unsubscribe();
-    }
   }
 
 
@@ -64,7 +45,6 @@ export class AltaAdminComponent {
       apellido:['',[Validators.required]],
       edad:['',[Validators.min(0), Validators.required]],
       dni:['',[Validators.min(0), Validators.required]],
-      especialidad:['',[Validators.required]],
       email:['',[Validators.required]],
       clave:['',[Validators.required]],
       foto:['',[Validators.required]]
@@ -94,45 +74,12 @@ export class AltaAdminComponent {
     console.log(this.fotoAdmin);    
   }
 
-  cargarEspecialidad(especialidad : string){
-    this.form.get('especialidad')?.setValue(especialidad);
-  }
-
-  cargarAdmins(arrayadmins: any[]){
-    let arrayadminsAux : any = [];
-    
-    for(let i=0; i<arrayadmins.length;i++){
-      if(!this.determinarSiLaEspecialidadEsta(arrayadminsAux, arrayadmins[i].especialidad)){
-        arrayadminsAux.push(
-          {especialidad:arrayadmins[i].especialidad}
-        );
-      }
-    }
-
-    this.botonesEspecialidad = arrayadminsAux;
-    
-  }
-
-
-  determinarSiLaEspecialidadEsta(arrayadmins : any[], especialidad : string){
-    let flagLaEspecialidadExiste : boolean = false;
-
-    for(let i=0; i<arrayadmins.length; i++){
-      if(arrayadmins[i].especialidad == especialidad){
-        flagLaEspecialidadExiste = true;
-        break;
-      }
-    }
-    return flagLaEspecialidadExiste;
-  }
-
   limpiarTodo(){
     this.form.setValue({
       nombre:'',
       apellido:'',
       edad:'',
       dni:'',
-      especialidad:'',
       email:'',
       clave:'',
       foto:''
